@@ -20,7 +20,7 @@ public class DiagnosticTest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = DiagnosticTestTableDesc.NAME_FIELD)
+	@Column(name = DiagnosticTestTableDesc.NAME_FIELD, nullable = false)
 	private String name;
 
 	@Column(name = DiagnosticTestTableDesc.DESCRIPTION_FIELD)
@@ -36,12 +36,18 @@ public class DiagnosticTest {
 	@JoinColumn(name = DiagnosticTestTableDesc.CATEGORY_ID_FIELD)
 	private DiagnosticCategory diagnosticCategory;
 
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = DiagnosticTestTableDesc.METRIC_ID_FIELD)
+	private DiagnosticMetric diagnosticMetric;
+
 
 	@Builder
-	public DiagnosticTest(String name, String description, String questionCount, String duration) {
+	public DiagnosticTest(String name, String description, String questionCount, String duration, DiagnosticCategory diagnosticCategory, DiagnosticMetric diagnosticMetric) {
 		this.name = name;
 		this.description = description;
 		this.questionCount = questionCount;
 		this.duration = duration;
+		this.diagnosticCategory = diagnosticCategory;
+		this.diagnosticMetric = diagnosticMetric;
 	}
 }

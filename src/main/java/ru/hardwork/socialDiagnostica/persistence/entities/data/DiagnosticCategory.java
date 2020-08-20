@@ -21,11 +21,8 @@ public class DiagnosticCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = DiagnosticCategoryTableDesc.NAME_FIELD)
+	@Column(name = DiagnosticCategoryTableDesc.NAME_FIELD, nullable = false)
 	private String name;
-
-	@Column(name = DiagnosticCategoryTableDesc.COLOR_FIELD)
-	private String color;
 
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@OneToMany(mappedBy = "diagnosticCategory", fetch = FetchType.LAZY)
@@ -33,9 +30,8 @@ public class DiagnosticCategory {
 
 
 	@Builder
-	public DiagnosticCategory(String name, String color, List<DiagnosticTest> diagnosticTests) {
+	public DiagnosticCategory(String name, List<DiagnosticTest> diagnosticTests) {
 		this.name = name;
-		this.color = color;
 		this.diagnosticTests = diagnosticTests;
 	}
 }
