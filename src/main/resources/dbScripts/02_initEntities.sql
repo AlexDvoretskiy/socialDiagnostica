@@ -14,10 +14,10 @@ create table if not exists diagnostic_test (
 	test_id serial not null constraint PK_diagnostic_test primary key,
 	category_id integer not null references diagnostic_category (category_id),
 	metric_id integer not null references diagnostic_metric (metric_id),
-	name varchar not null,
-	description varchar,
+	test_name varchar not null,
+	test_description varchar,
   	question_count smallint,
-    duration decimal
+    test_duration decimal
 );
 
 create table if not exists question_type (

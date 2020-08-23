@@ -1,14 +1,19 @@
 package ru.hardwork.socialDiagnostica.controllers.rest;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ru.hardwork.socialDiagnostica.json.CategoryView;
 import ru.hardwork.socialDiagnostica.persistence.dto.DiagnosticCategoryDto;
 import ru.hardwork.socialDiagnostica.persistence.dto.DiagnosticTestDto;
 import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.DiagnosticCategoryService;
@@ -25,13 +30,14 @@ public class DiagnosticRestController {
 	private final DiagnosticTestService diagnosticTestService;
 	private final DiagnosticCategoryService diagnosticCategoryService;
 
-	@GetMapping("/getCategoriesWithTests")
-	public ResponseEntity<List<DiagnosticCategoryDto>> getDiagnosticCategoriesWithTest() {
-		List<DiagnosticCategoryDto> categories = diagnosticCategoryService.getAll();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
-		return CollectionUtils.isNotEmpty(categories) ?
-				new ResponseEntity<>(categories, HttpStatus.OK) :
-				new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	@GetMapping(value = "/getCategoriesWithTests", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getDiagnosticCategoriesWithTestNames() throws JsonProcessingException {
+		List<DiagnosticCategoryDto> categories = diagnosticCategoryService.getAllWithTestNamesOnly();
+		ObjectWriter objectWriter = objectMapper.writerWithView(CategoryView.EXCLUDE_TEST_DATA.class);
+		return objectWriter.writeValueAsString(categories);
 	}
 
 	@GetMapping("/getTest")

@@ -29,6 +29,12 @@ public class DiagnosticCategoryServiceImpl implements DiagnosticCategoryService 
 	@Override
 	public List<DiagnosticCategoryDto> getAll() {
 		List<DiagnosticCategory> diagnosticCategories = Lists.newArrayList(diagnosticCategoryRepository.findAll());
-		return diagnosticCategoryMapper.mapDiagnosticCategoryListToDto(diagnosticCategories);
+		return diagnosticCategoryMapper.mapCategoryWithTestDataToDto(diagnosticCategories);
+	}
+
+	@Override
+	public List<DiagnosticCategoryDto> getAllWithTestNamesOnly() {
+		List<DiagnosticCategory> diagnosticCategories = Lists.newArrayList(diagnosticCategoryRepository.findAll());
+		return diagnosticCategoryMapper.mapCategoryWithTestNameOnlyToDto(diagnosticCategories);
 	}
 }

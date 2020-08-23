@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 @Builder
 public class DiagnosticCategoryDto {
+	private Long id;
 	private String name;
-	private String color;
 
 	private List<DiagnosticTestDto> tests;
 }

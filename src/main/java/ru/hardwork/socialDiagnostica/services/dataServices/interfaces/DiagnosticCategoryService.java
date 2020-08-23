@@ -9,5 +9,8 @@ import java.util.List;
 
 @Service
 public interface DiagnosticCategoryService {
+
 	List<DiagnosticCategoryDto> getAll();
+
+	List<DiagnosticCategoryDto> getAllWithTestNamesOnly();
 }

@@ -1,5 +1,6 @@
 package ru.hardwork.socialDiagnostica.persistence.dto.mappers;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
@@ -15,35 +16,54 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DiagnosticCategoryMapper {
+	private final DiagnosticTestMapper diagnosticTestMapper;
 
-	public List<DiagnosticCategoryDto> mapDiagnosticCategoryListToDto(List<DiagnosticCategory> diagnosticCategories) {
+	public List<DiagnosticCategoryDto> mapCategoryWithTestNameOnlyToDto(List<DiagnosticCategory> diagnosticCategories) {
 		List<DiagnosticCategoryDto> diagnosticCategoryDtoList = new LinkedList<>();
 
 		for (DiagnosticCategory diagnosticCategory : diagnosticCategories) {
-			diagnosticCategoryDtoList.add(mapDiagnosticCategoryToDto(diagnosticCategory));
+			diagnosticCategoryDtoList.add(mapCategoryWithTestNameOnlyToDto(diagnosticCategory));
 		}
 		return diagnosticCategoryDtoList;
 	}
 
-	public DiagnosticCategoryDto mapDiagnosticCategoryToDto(DiagnosticCategory diagnosticCategory) {
+	public List<DiagnosticCategoryDto> mapCategoryWithTestDataToDto(List<DiagnosticCategory> diagnosticCategories) {
+		List<DiagnosticCategoryDto> diagnosticCategoryDtoList = new LinkedList<>();
+
+		for (DiagnosticCategory diagnosticCategory : diagnosticCategories) {
+			diagnosticCategoryDtoList.add(mapCategoryWithTestDataToDto(diagnosticCategory));
+		}
+		return diagnosticCategoryDtoList;
+	}
+
+	private DiagnosticCategoryDto mapCategoryWithTestNameOnlyToDto(DiagnosticCategory diagnosticCategory) {
 		List<DiagnosticTest> diagnosticTests = diagnosticCategory.getDiagnosticTests();
 		List<DiagnosticTestDto> diagnosticTestDtos = new LinkedList<>();
 
 		for (DiagnosticTest diagnosticTest : diagnosticTests) {
-			DiagnosticTestDto diagnosticTestDto = DiagnosticTestDto.builder()
-					.name(diagnosticTest.getName())
-					.description(diagnosticTest.getDescription())
-					.questionCount(diagnosticTest.getQuestionCount())
-					.duration(diagnosticTest.getDuration())
-			.build();
-
-			diagnosticTestDtos.add(diagnosticTestDto);
+			diagnosticTestDtos.add(diagnosticTestMapper.mapDiagnosticTestWithNameOnlyToDto(diagnosticTest));
 		}
 
 		return DiagnosticCategoryDto.builder()
+				.id(diagnosticCategory.getId())
 				.name(diagnosticCategory.getName())
-				.color(diagnosticCategory.getColor())
+				.tests(diagnosticTestDtos)
+		.build();
+	}
+
+	private DiagnosticCategoryDto mapCategoryWithTestDataToDto(DiagnosticCategory diagnosticCategory) {
+		List<DiagnosticTest> diagnosticTests = diagnosticCategory.getDiagnosticTests();
+		List<DiagnosticTestDto> diagnosticTestDtos = new LinkedList<>();
+
+		for (DiagnosticTest diagnosticTest : diagnosticTests) {
+			diagnosticTestDtos.add(diagnosticTestMapper.mapDiagnosticTestToDto(diagnosticTest));
+		}
+
+		return DiagnosticCategoryDto.builder()
+				.id(diagnosticCategory.getId())
+				.name(diagnosticCategory.getName())
 				.tests(diagnosticTestDtos)
 		.build();
 	}

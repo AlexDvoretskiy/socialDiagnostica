@@ -8,8 +8,12 @@ import ru.hardwork.socialDiagnostica.persistence.entities.data.User;
 
 
 public interface UserService extends UserDetailsService {
+
 	User findByUserName(String userName);
+
 	User getCurrentUser();
+
 	void create(SystemUser systemUser);
+
 	void create(UserDto userDto);
 }
