@@ -13,7 +13,10 @@ import ru.hardwork.socialDiagnostica.persistence.entities.data.DiagnosticTest;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DiagnosticTestMapper {
+	private final DiagnosticQuestionMapper diagnosticQuestionMapper;
+
 
 	public DiagnosticTestDto mapDiagnosticTestToDto(DiagnosticTest diagnosticTest) {
 		DiagnosticMetricDto diagnosticMetricDto = DiagnosticMetricDto.builder()
@@ -28,6 +31,17 @@ public class DiagnosticTestMapper {
 				.questionCount(diagnosticTest.getQuestionCount())
 				.duration(diagnosticTest.getDuration())
 				.diagnosticMetricDto(diagnosticMetricDto)
+		.build();
+	}
+
+	public DiagnosticTestDto mapDiagnosticTestWithQuestionsToDto(DiagnosticTest diagnosticTest) {
+		return DiagnosticTestDto.builder()
+				.id(diagnosticTest.getId())
+				.name(diagnosticTest.getName())
+				.description(diagnosticTest.getDescription())
+				.questionCount(diagnosticTest.getQuestionCount())
+				.duration(diagnosticTest.getDuration())
+				.diagnosticQuestions(diagnosticQuestionMapper.mapDiagnosticQuestionToDto(diagnosticTest.getDiagnosticQuestions()))
 		.build();
 	}
 

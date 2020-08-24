@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.hardwork.socialDiagnostica.persistence.tables.DiagnosticTestTableDesc;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -39,6 +40,9 @@ public class DiagnosticTest {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = DiagnosticTestTableDesc.METRIC_ID_FIELD)
 	private DiagnosticMetric diagnosticMetric;
+
+	@OneToMany(mappedBy = "diagnosticTest")
+	private List<DiagnosticQuestion> diagnosticQuestions;
 
 
 	@Builder

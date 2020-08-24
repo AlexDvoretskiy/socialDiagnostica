@@ -7,7 +7,7 @@ import ru.hardwork.socialDiagnostica.persistence.dto.DiagnosticTestDto;
 @Service
 public interface DiagnosticTestService {
 
-	DiagnosticTestDto findOneById(Long id);
+	DiagnosticTestDto findOneByIdWithQuestions(Long id);
 
 	void create(DiagnosticTestDto diagnosticTestDto);
 }

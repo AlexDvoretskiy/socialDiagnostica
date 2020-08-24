@@ -8,12 +8,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ru.hardwork.socialDiagnostica.json.CategoryView;
+import ru.hardwork.socialDiagnostica.json.TestView;
 import ru.hardwork.socialDiagnostica.persistence.dto.DiagnosticCategoryDto;
 import ru.hardwork.socialDiagnostica.persistence.dto.DiagnosticTestDto;
 import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.DiagnosticCategoryService;
@@ -40,12 +39,10 @@ public class DiagnosticRestController {
 		return objectWriter.writeValueAsString(categories);
 	}
 
-	@GetMapping("/getTest")
-	public ResponseEntity<DiagnosticTestDto> getDiagnosticTest(@RequestParam(value="id", required=true) long id) {
-		DiagnosticTestDto diagnosticTestDto = diagnosticTestService.findOneById(id);
-
-		return diagnosticTestDto != null ?
-				new ResponseEntity<>(diagnosticTestDto, HttpStatus.OK) :
-				new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	@GetMapping("/getTestWithQuestionsAndAnswers/{id}")
+	public String getDiagnosticTest(@PathVariable("id") long id) throws JsonProcessingException {
+		DiagnosticTestDto diagnosticTestDto = diagnosticTestService.findOneByIdWithQuestions(id);
+		ObjectWriter objectWriter = objectMapper.writerWithView(TestView.INCLUDE_QUESTIONS_DATA.class);
+		return objectWriter.writeValueAsString(diagnosticTestDto);
 	}
 }
