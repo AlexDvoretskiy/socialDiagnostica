@@ -1,1 +1,3 @@
 rootProject.name = 'socialDiagnostica'
+include 'socialDiagnosticaApi'
+include 'socialDiagnosticaWebPortal'

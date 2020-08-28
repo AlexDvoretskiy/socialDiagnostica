@@ -1,4 +1,4 @@
-package ru.hardwork.socialDiagnostica.persistence.entities;
+package ru.hardwork.socialDiagnostica.persistence.entities.rest;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

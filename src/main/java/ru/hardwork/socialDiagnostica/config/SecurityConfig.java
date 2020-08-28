@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import ru.hardwork.socialDiagnostica.config.handlers.UserAuthenticationSuccessHandler;
-import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.UserService;
+import ru.hardwork.socialDiagnostica.services.userServices.interfaces.UserService;
 
 import javax.sql.DataSource;
 

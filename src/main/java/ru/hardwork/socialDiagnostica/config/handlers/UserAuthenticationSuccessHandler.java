@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import ru.hardwork.socialDiagnostica.persistence.entities.data.Role;
 import ru.hardwork.socialDiagnostica.persistence.entities.data.User;
-import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.UserService;
+import ru.hardwork.socialDiagnostica.services.userServices.interfaces.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

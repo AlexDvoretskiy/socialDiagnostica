@@ -1,4 +1,5 @@
-package ru.hardwork.socialDiagnostica.services.dataServices;
+package socialDiagnosticaApi.services.userServices;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,15 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
-import ru.hardwork.socialDiagnostica.persistence.dto.UserDto;
-import ru.hardwork.socialDiagnostica.persistence.dto.mappers.UserMapper;
-import ru.hardwork.socialDiagnostica.persistence.entities.SystemUser;
-import ru.hardwork.socialDiagnostica.persistence.entities.data.Role;
-import ru.hardwork.socialDiagnostica.persistence.entities.data.User;
-import ru.hardwork.socialDiagnostica.repositories.RoleRepository;
-import ru.hardwork.socialDiagnostica.repositories.UserRepository;
-import ru.hardwork.socialDiagnostica.services.AuthService;
-import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.UserService;
+import socialDiagnosticaApi.persistence.dto.UserDto;
+import socialDiagnosticaApi.persistence.dto.mappers.UserMapper;
+import socialDiagnosticaApi.persistence.entities.data.Role;
+import socialDiagnosticaApi.persistence.entities.data.User;
+import socialDiagnosticaApi.persistence.entities.rest.SystemUser;
+import socialDiagnosticaApi.repositories.RoleRepository;
+import socialDiagnosticaApi.repositories.UserRepository;
+import socialDiagnosticaApi.services.userServices.interfaces.UserService;
 
 import javax.transaction.Transactional;
 
@@ -75,6 +75,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User findByLoginAndPassword(String login, String password) {
+		User user = findByLogin(login);
+		if (user != null) {
+			if (passwordEncoder.matches(password, user.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findOneByName(userName);
@@ -87,5 +98,9 @@ public class UserServiceImpl implements UserService {
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+	}
+
+	private User findByLogin(String login) {
+		return userRepository.findOneByName(login);
 	}
 }

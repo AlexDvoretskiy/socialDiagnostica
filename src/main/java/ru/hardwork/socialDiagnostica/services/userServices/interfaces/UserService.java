@@ -1,9 +1,9 @@
-package ru.hardwork.socialDiagnostica.services.dataServices.interfaces;
+package ru.hardwork.socialDiagnostica.services.userServices.interfaces;
 
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.hardwork.socialDiagnostica.persistence.dto.UserDto;
-import ru.hardwork.socialDiagnostica.persistence.entities.SystemUser;
+import ru.hardwork.socialDiagnostica.persistence.entities.rest.SystemUser;
 import ru.hardwork.socialDiagnostica.persistence.entities.data.User;
 
 

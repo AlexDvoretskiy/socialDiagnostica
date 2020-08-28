@@ -9,9 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import ru.hardwork.socialDiagnostica.persistence.entities.SystemUser;
+import ru.hardwork.socialDiagnostica.persistence.entities.rest.SystemUser;
 import ru.hardwork.socialDiagnostica.persistence.entities.data.User;
-import ru.hardwork.socialDiagnostica.services.dataServices.interfaces.UserService;
+import ru.hardwork.socialDiagnostica.services.userServices.interfaces.UserService;
 
 import javax.validation.Valid;
 
@@ -40,7 +40,6 @@ public class RegistrationController {
 			return "registerForm";
 		}
 
-		System.out.println("name:" + systemUser.getUserName() + " email: " + systemUser.getEmail() + " pass: " + systemUser.getPassword());
 		User existingUser = userService.findByUserName(systemUser.getUserName());
 		if (existingUser != null) {
 			model.addAttribute("error", true);

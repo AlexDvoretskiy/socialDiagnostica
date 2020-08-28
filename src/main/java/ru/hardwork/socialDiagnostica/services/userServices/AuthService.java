@@ -1,4 +1,4 @@
-package ru.hardwork.socialDiagnostica.services;
+package ru.hardwork.socialDiagnostica.services.userServices;
 
 
 import org.springframework.security.core.Authentication;
