@@ -1,4 +1,4 @@
-package socialDiagnosticaApi.validation;
+package socialDiagnosticaWebPortal.utils.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,13 +1,14 @@
-package socialDiagnosticaApi.persistence.entities.rest;
+package socialDiagnosticaWebPortal.persistence;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import socialDiagnosticaApi.utils.validation.FieldMatch;
-import socialDiagnosticaApi.utils.validation.ValidEmail;
+import socialDiagnosticaWebPortal.utils.validation.FieldMatch;
+import socialDiagnosticaWebPortal.utils.validation.ValidEmail;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 
 @Data
 @NoArgsConstructor
@@ -29,4 +30,7 @@ public class SystemUser {
 	@Size(max = 25, message = "максимум 20 символов")
 	@Pattern(regexp = "^[0-9a-zA-Z!@#$%^&*].*", message = "некорректный формат пароля")
 	private String password;
+
+	@Size(min = 1, message = requiredMsg)
+	private String matchingPassword;
 }

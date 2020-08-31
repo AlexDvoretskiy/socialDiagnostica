@@ -1,4 +1,4 @@
-package socialDiagnosticaApi.validation;
+package socialDiagnosticaWebPortal.utils.validation;
 
 import org.springframework.beans.BeanWrapperImpl;
 
