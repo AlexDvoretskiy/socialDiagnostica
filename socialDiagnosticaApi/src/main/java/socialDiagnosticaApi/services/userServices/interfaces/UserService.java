@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import socialDiagnosticaApi.persistence.dto.UserDto;
 import socialDiagnosticaApi.persistence.entities.data.User;
-import socialDiagnosticaApi.persistence.entities.rest.SystemUser;
+import socialDiagnosticaApi.persistence.entities.system.SystemUser;
 
 public interface UserService extends UserDetailsService {
 

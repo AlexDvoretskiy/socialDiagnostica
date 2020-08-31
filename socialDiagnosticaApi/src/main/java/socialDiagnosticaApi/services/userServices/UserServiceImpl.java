@@ -14,7 +14,7 @@ import socialDiagnosticaApi.persistence.dto.UserDto;
 import socialDiagnosticaApi.persistence.dto.mappers.UserMapper;
 import socialDiagnosticaApi.persistence.entities.data.Role;
 import socialDiagnosticaApi.persistence.entities.data.User;
-import socialDiagnosticaApi.persistence.entities.rest.SystemUser;
+import socialDiagnosticaApi.persistence.entities.system.SystemUser;
 import socialDiagnosticaApi.repositories.RoleRepository;
 import socialDiagnosticaApi.repositories.UserRepository;
 import socialDiagnosticaApi.services.userServices.interfaces.UserService;

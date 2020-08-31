@@ -1,4 +1,4 @@
-package socialDiagnosticaApi.persistence.entities.rest;
+package socialDiagnosticaApi.persistence.entities.system;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

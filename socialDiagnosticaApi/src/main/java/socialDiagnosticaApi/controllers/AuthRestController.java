@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import socialDiagnosticaApi.persistence.entities.data.User;
-import socialDiagnosticaApi.persistence.entities.rest.AuthRequest;
-import socialDiagnosticaApi.persistence.entities.rest.AuthResponse;
-import socialDiagnosticaApi.persistence.entities.rest.SystemUser;
+import socialDiagnosticaApi.persistence.pojo.AuthRequest;
+import socialDiagnosticaApi.persistence.pojo.AuthResponse;
+import socialDiagnosticaApi.persistence.entities.system.SystemUser;
 import socialDiagnosticaApi.services.userServices.TokenGenerateService;
 import socialDiagnosticaApi.services.userServices.interfaces.UserService;
 
