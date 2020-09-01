@@ -23,19 +23,19 @@ public class DiagnosticTestDto {
 	@JsonView(CategoryView.ALL.class)
 	private String duration;
 	@JsonView(CategoryView.ALL.class)
-	private DiagnosticMetricDto diagnosticMetricDto;
+	private DiagnosticMetricDto diagnosticMetric;
 	@JsonView(TestView.INCLUDE_QUESTIONS_DATA.class)
 	private List<DiagnosticQuestionDto> diagnosticQuestions;
 
 
 	@Builder
-	public DiagnosticTestDto(Long id, String name, String description, String questionCount, String duration, DiagnosticMetricDto diagnosticMetricDto, List<DiagnosticQuestionDto> diagnosticQuestions) {
+	public DiagnosticTestDto(Long id, String name, String description, String questionCount, String duration, DiagnosticMetricDto diagnosticMetric, List<DiagnosticQuestionDto> diagnosticQuestions) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.questionCount = questionCount;
 		this.duration = duration;
-		this.diagnosticMetricDto = diagnosticMetricDto;
+		this.diagnosticMetric = diagnosticMetric;
 		this.diagnosticQuestions = diagnosticQuestions;
 	}
 
