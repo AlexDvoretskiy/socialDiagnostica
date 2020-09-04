@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,14 +31,21 @@ public class AuthRestController {
 
 	@PostMapping("/register")
 	public String registerUser(@RequestBody @Valid SystemUser systemUser) {
+		User existingUser = userService.findByUserName(systemUser.getUserName());
+		if (existingUser != null) {
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}
 		userService.create(systemUser);
-		return HttpStatus.OK.getReasonPhrase();
+		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
 	@PostMapping("/auth")
-	public AuthResponse auth(@RequestBody AuthRequest request) {
+	public ResponseEntity<AuthResponse> auth(@RequestBody AuthRequest request) {
 		User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
 		String token = tokenGenerateService.generateToken(user.getName());
-		return new AuthResponse(token);
+
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(new AuthResponse(token));
 	}
 }

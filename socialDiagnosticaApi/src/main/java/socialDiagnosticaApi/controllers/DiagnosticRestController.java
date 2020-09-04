@@ -32,17 +32,21 @@ public class DiagnosticRestController {
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 
+	@ResponseBody
 	@GetMapping(value = "/getCategoriesWithTests", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getDiagnosticCategoriesWithTestNames() throws JsonProcessingException {
 		List<DiagnosticCategoryDto> categories = diagnosticCategoryService.getAllWithTestNamesOnly();
 		ObjectWriter objectWriter = objectMapper.writerWithView(CategoryView.EXCLUDE_TEST_DATA.class);
+		log.debug(objectWriter.writeValueAsString(categories));
 		return objectWriter.writeValueAsString(categories);
 	}
 
+	@ResponseBody
 	@GetMapping("/getTestWithQuestionsAndAnswers/{id}")
 	public String getDiagnosticTest(@PathVariable("id") long id) throws JsonProcessingException {
 		DiagnosticTestDto diagnosticTestDto = diagnosticTestService.findOneByIdWithQuestions(id);
 		ObjectWriter objectWriter = objectMapper.writerWithView(TestView.INCLUDE_QUESTIONS_DATA.class);
+		log.debug(objectWriter.writeValueAsString(diagnosticTestDto));
 		return objectWriter.writeValueAsString(diagnosticTestDto);
 	}
 }

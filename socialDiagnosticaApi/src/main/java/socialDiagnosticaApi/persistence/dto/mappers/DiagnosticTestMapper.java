@@ -30,7 +30,7 @@ public class DiagnosticTestMapper {
 				.description(diagnosticTest.getDescription())
 				.questionCount(diagnosticTest.getQuestionCount())
 				.duration(diagnosticTest.getDuration())
-				.diagnosticMetricDto(diagnosticMetricDto)
+				.diagnosticMetric(diagnosticMetricDto)
 		.build();
 	}
 

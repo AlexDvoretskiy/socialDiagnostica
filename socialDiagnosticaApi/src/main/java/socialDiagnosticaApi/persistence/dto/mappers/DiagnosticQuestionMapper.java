@@ -32,7 +32,7 @@ public class DiagnosticQuestionMapper {
 
 	public DiagnosticQuestionDto mapDiagnosticQuestionToDto(DiagnosticQuestion diagnosticQuestion) {
 		return DiagnosticQuestionDto.builder()
-				.questionTypeDto(new QuestionTypeDto(diagnosticQuestion.getQuestionType().getName()))
+				.questionType(new QuestionTypeDto(diagnosticQuestion.getQuestionType().getName()))
 				.description(diagnosticQuestion.getDescription())
 				.duration(diagnosticQuestion.getDuration())
 				.diagnosticAnswers(diagnosticAnswerMapper.mapDiagnosticAnswerToDto(diagnosticQuestion.getDiagnosticAnswers()))
