@@ -12,5 +12,5 @@ public interface UserService extends UserDetailsService {
 
 	User getCurrentUser();
 
-	void create(SystemUser systemUser);
+	User create(SystemUser systemUser);
 }

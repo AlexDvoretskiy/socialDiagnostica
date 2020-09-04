@@ -7,9 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import socialDiagnosticaWebPortal.config.PasswordEncryptor;
 import socialDiagnosticaWebPortal.persistence.SystemUser;
 import socialDiagnosticaWebPortal.persistence.entites.Role;
 import socialDiagnosticaWebPortal.persistence.entites.User;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncryptor passwordEncryptor;
 	@Autowired
 	private AuthService authService;
 
@@ -51,16 +51,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void create(SystemUser systemUser) {
+	public User create(SystemUser systemUser) {
 		User user = new User();
 
 		user.setName(systemUser.getUserName());
 		user.setFullName(systemUser.getFullName());
-		user.setPassword(passwordEncoder.encode(systemUser.getPassword()));
+		user.setPassword(passwordEncryptor.encode(systemUser.getPassword()));
 		user.setEmail(systemUser.getEmail());
 		user.setRoles(Collections.singletonList(roleRepository.findOneByName(DEFAULT_ROLE)));
 
 		userRepository.save(user);
+		return user;
 	}
 
 	@Override
