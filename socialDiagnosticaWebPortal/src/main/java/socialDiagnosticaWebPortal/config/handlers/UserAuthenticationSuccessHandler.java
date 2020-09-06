@@ -57,7 +57,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		if (roleName.equalsIgnoreCase(ADMIN_ROLE)) {
 			response.sendRedirect(request.getContextPath() + "/admin/");
 		} else {
-			response.sendRedirect(request.getContextPath() + "/workplace/");
+			response.sendRedirect(request.getContextPath() + "/workplace/categories");
 		}
 	}
 }
