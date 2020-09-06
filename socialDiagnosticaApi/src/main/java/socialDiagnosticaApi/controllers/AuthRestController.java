@@ -2,6 +2,8 @@ package socialDiagnosticaApi.controllers;
 
 
 
+import io.swagger.annotations.ApiOperation;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,7 @@ public class AuthRestController {
 	private final UserService userService;
 	private final TokenGenerateService tokenGenerateService;
 
+	@ApiOperation(value = "Зарегистрировать пользователя")
 	@PostMapping("/register")
 	public String registerUser(@RequestBody @Valid SystemUser systemUser) {
 		User existingUser = userService.findByUserName(systemUser.getUserName());
@@ -39,6 +42,7 @@ public class AuthRestController {
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
+	@ApiOperation(value = "Авторизовать пользователя", response = String.class)
 	@PostMapping("/auth")
 	public ResponseEntity<AuthResponse> auth(@RequestBody AuthRequest request) {
 		User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import io.swagger.annotations.ApiOperation;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,7 @@ public class DiagnosticRestController {
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 
+	@ApiOperation(value = "Получение всех категорий с тестами и их описанием", response = String.class)
 	@ResponseBody
 	@GetMapping(value = "/getCategoriesWithTests", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getDiagnosticCategoriesWithTestNames() throws JsonProcessingException {
@@ -41,6 +44,7 @@ public class DiagnosticRestController {
 		return objectWriter.writeValueAsString(categories);
 	}
 
+	@ApiOperation(value = "Получение теста с вопросами и ответами по id", response = String.class)
 	@ResponseBody
 	@GetMapping("/getTestWithQuestionsAndAnswers/{id}")
 	public String getDiagnosticTest(@PathVariable("id") long id) throws JsonProcessingException {
