@@ -16,13 +16,13 @@ public class DiagnosticTestDto {
 	private Long id;
 	private String name;
 
-	@JsonView(CategoryView.ALL.class)
+	@JsonView(CategoryView.WITH_DESCRIPTION.class)
 	private String description;
-	@JsonView(CategoryView.ALL.class)
+	@JsonView(CategoryView.WITH_DESCRIPTION.class)
 	private String questionCount;
-	@JsonView(CategoryView.ALL.class)
+	@JsonView(CategoryView.WITH_DESCRIPTION.class)
 	private String duration;
-	@JsonView(CategoryView.ALL.class)
+	@JsonView(CategoryView.INCLUDE_METRIC.class)
 	private DiagnosticMetricDto diagnosticMetric;
 	@JsonView(TestView.INCLUDE_QUESTIONS_DATA.class)
 	private List<DiagnosticQuestionDto> diagnosticQuestions;

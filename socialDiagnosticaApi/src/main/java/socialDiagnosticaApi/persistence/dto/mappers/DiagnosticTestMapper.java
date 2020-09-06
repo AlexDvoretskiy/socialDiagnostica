@@ -57,4 +57,14 @@ public class DiagnosticTestMapper {
 	public DiagnosticTestDto mapDiagnosticTestWithNameOnlyToDto(DiagnosticTest diagnosticTest) {
 		return new DiagnosticTestDto(diagnosticTest.getId(), diagnosticTest.getName());
 	}
+
+	public DiagnosticTestDto mapDiagnosticTestWithDescToDto(DiagnosticTest diagnosticTest) {
+		return DiagnosticTestDto.builder()
+				.id(diagnosticTest.getId())
+				.name(diagnosticTest.getName())
+				.description(diagnosticTest.getDescription())
+				.questionCount(diagnosticTest.getQuestionCount())
+				.duration(diagnosticTest.getDuration())
+		.build();
+	}
 }

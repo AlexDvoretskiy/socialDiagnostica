@@ -24,7 +24,7 @@ public class DiagnosticCategoryMapper {
 		List<DiagnosticCategoryDto> diagnosticCategoryDtoList = new LinkedList<>();
 
 		for (DiagnosticCategory diagnosticCategory : diagnosticCategories) {
-			diagnosticCategoryDtoList.add(mapCategoryWithTestNameOnlyToDto(diagnosticCategory));
+			diagnosticCategoryDtoList.add(mapCategoryWithTestDescToDto(diagnosticCategory));
 		}
 		return diagnosticCategoryDtoList;
 	}
@@ -38,12 +38,12 @@ public class DiagnosticCategoryMapper {
 		return diagnosticCategoryDtoList;
 	}
 
-	private DiagnosticCategoryDto mapCategoryWithTestNameOnlyToDto(DiagnosticCategory diagnosticCategory) {
+	private DiagnosticCategoryDto mapCategoryWithTestDescToDto(DiagnosticCategory diagnosticCategory) {
 		List<DiagnosticTest> diagnosticTests = diagnosticCategory.getDiagnosticTests();
 		List<DiagnosticTestDto> diagnosticTestDtos = new LinkedList<>();
 
 		for (DiagnosticTest diagnosticTest : diagnosticTests) {
-			diagnosticTestDtos.add(diagnosticTestMapper.mapDiagnosticTestWithNameOnlyToDto(diagnosticTest));
+			diagnosticTestDtos.add(diagnosticTestMapper.mapDiagnosticTestWithDescToDto(diagnosticTest));
 		}
 
 		return DiagnosticCategoryDto.builder()

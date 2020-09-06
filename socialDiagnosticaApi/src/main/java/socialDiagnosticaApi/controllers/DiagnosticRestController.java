@@ -36,7 +36,7 @@ public class DiagnosticRestController {
 	@GetMapping(value = "/getCategoriesWithTests", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getDiagnosticCategoriesWithTestNames() throws JsonProcessingException {
 		List<DiagnosticCategoryDto> categories = diagnosticCategoryService.getAllWithTestNamesOnly();
-		ObjectWriter objectWriter = objectMapper.writerWithView(CategoryView.EXCLUDE_TEST_DATA.class);
+		ObjectWriter objectWriter = objectMapper.writerWithView(CategoryView.WITH_DESCRIPTION.class);
 		log.debug(objectWriter.writeValueAsString(categories));
 		return objectWriter.writeValueAsString(categories);
 	}
