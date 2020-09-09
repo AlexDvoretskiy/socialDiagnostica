@@ -17,6 +17,7 @@ import socialDiagnosticaWebPortal.persistence.SystemUser;
 import socialDiagnosticaWebPortal.persistence.dto.UserDto;
 import socialDiagnosticaWebPortal.persistence.dto.mappers.UserDtoMapper;
 import socialDiagnosticaWebPortal.persistence.entites.User;
+import socialDiagnosticaWebPortal.persistence.pojo.DiagnosticTest;
 import socialDiagnosticaWebPortal.services.restServices.response.AuthRequest;
 import socialDiagnosticaWebPortal.services.restServices.response.AuthResponse;
 import socialDiagnosticaWebPortal.persistence.pojo.DiagnosticCategory;
@@ -38,6 +39,7 @@ public class SocialDiagnosticaService {
 	@Value("${socialDiagnostica.api.host.request}")
 	private String requestQueryUrl;
 
+
 	public void register(SystemUser systemUser) throws UserRegisterException {
 		final String urlRequest = String.format(registerQueryUrl, "register");
 
@@ -53,6 +55,7 @@ public class SocialDiagnosticaService {
 			throw new UserRegisterException("Ошибка при регистрации пользователя в сервисе диагностики");
 		}
 	}
+
 
 	public String authenticate(User user) throws UserAuthException {
 		final String urlRequest = String.format(registerQueryUrl, "auth");
@@ -77,26 +80,45 @@ public class SocialDiagnosticaService {
 		}
 	}
 
+
 	public List<DiagnosticCategory> getCategoriesWithTests() throws ResponseNotFoundException {
 		final String urlRequest = String.format(requestQueryUrl, "getCategoriesWithTests");
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setBearerAuth(SessionUtils.getToken());
-
-		HttpEntity<?> request = new HttpEntity<Object>(headers);
-
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<DiagnosticCategory[]> categoryResponseEntity = restTemplate.exchange(urlRequest, HttpMethod.GET, request, DiagnosticCategory[].class);
+		ResponseEntity<DiagnosticCategory[]> categoryResponseEntity = restTemplate.exchange(urlRequest, HttpMethod.GET, getPreparedHttpEntityForRequestQuery(), DiagnosticCategory[].class);
 
 		DiagnosticCategory[] diagnosticCategories = categoryResponseEntity.getBody();
 		if (diagnosticCategories == null || diagnosticCategories.length == 0) {
-			throw new ResponseNotFoundException("Ошибка получения ответа от сервиса диагностики: categoryResponse is null");
+			throw new ResponseNotFoundException("Ошибка получения ответа от сервиса диагностики: categoryResponse is null or empty");
 		}
 		return Arrays.asList(diagnosticCategories);
 	}
 
+
+	public DiagnosticTest getTestById(long id) throws ResponseNotFoundException {
+		final String urlRequest = String.format(requestQueryUrl, "getTestWithQuestionsAndAnswers/" + id);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<DiagnosticTest> testResponseEntity = restTemplate.exchange(urlRequest, HttpMethod.GET, getPreparedHttpEntityForRequestQuery(), DiagnosticTest.class);
+
+		DiagnosticTest diagnosticTest = testResponseEntity.getBody();
+		if (diagnosticTest == null) {
+			throw new ResponseNotFoundException("Ошибка получения ответа от сервиса диагностики: diagnosticTest is null");
+		}
+		return diagnosticTest;
+	}
+
+
 	private AuthRequest getAuthRequestFromUserData(User user) {
 		return new AuthRequest(user.getName(), passwordEncryptor.decode(user.getPassword()));
+	}
+
+
+	private HttpEntity<?> getPreparedHttpEntityForRequestQuery() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setBearerAuth(SessionUtils.getToken());
+
+		return new HttpEntity<Object>(headers);
 	}
 }

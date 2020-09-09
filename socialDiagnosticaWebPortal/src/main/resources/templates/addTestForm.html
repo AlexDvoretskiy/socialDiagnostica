@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta -->
+    <meta name="description" content="Социальная диагностика">
+    <meta name="author" content="ThemePixels">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
+
+    <title>Социальная диагностика</title>
+    <!-- vendor css -->
+    <link href="../lib/@fortawesome/fontawesome-free/css/all.min.css" th:href="@{/lib/@fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link href="../lib/jqvmap/jqvmap.min.css" th:href="@{/lib/jqvmap/jqvmap.min.css}" rel="stylesheet">
+    <!-- template css -->
+    <link rel="stylesheet" th:href="@{/assets/css/cassie.css}">
+</head>
+<body>
+    <div th:replace="~{sidebar :: sidebar(rootTab='tests', subTab='addTest')}">
+    </div>
+
+    <div class="content">
+        <div th:replace="~{header :: header}">
+        </div>
+
+        <div class="content-header">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{'/workplace/categories'}">Тесты</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{'/workplace/categories'}">Категории</a></li>
+                        <li class="breadcrumb-item">Добавить тест</li>
+                    </ol>
+                </nav>
+            </div>
+        </div><!-- content-header -->
+        <div class="content-body">
+            <h4 class="content-title content-title-xs mb-3"> Форма для добавления теста </h4>
+            <form>
+                <div class="form-group">
+                    <label>Категория теста</label>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <select id="inputCategory" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="button" class="btn btn-outline-primary form-control">Создать новую категорию</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Наименование теста</label>
+                    <input type="text" class="form-control" placeholder="Введите наименование теста">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label>Описание теста</label>
+                        <input type="text" class="form-control" placeholder="Введите описание теста">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Время на прохождение</label>
+                        <select id="inputTestTime" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="question-container">
+                    <div class="border bg-light text-dark mt-2">
+                        <div class="form-group p-2">
+                            <div class="form-group">
+                                <label>Вопрос</label>
+                                <input type="text" class="form-control" placeholder="Введите наименование теста">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>Тип вопроса</label>
+                                    <select id="inputQuestionType" class="form-control">
+                                        <option selected>Choose...</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Время на прохождение</label>
+                                    <select id="inputQuestionTime" class="form-control">
+                                        <option selected>Choose...</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="border">
+                                <div class="form-group p-2">
+                                    <div id="answer-container" class="form-group">
+                                        <label>Варианты ответов</label>
+                                        <input type="text" class="form-control" placeholder="Введите вариант ответа">
+                                    </div>
+                                    <button id="addAnswerBut" type="button" class="btn btn-outline-primary mt-1">Добавить вариант ответа</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Сформировать</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addQuestionBut" type="submit" class="btn btn-primary">Добавить вопрос</button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- content-body -->
+    </div><!-- content -->
+
+    <script th:src="@{/lib/jquery/jquery.min.js}" src="../lib/jquery/jquery.min.js"></script>
+    <script th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}" src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/lib/feather-icons/feather.min.js}" src="../lib/feather-icons/feather.min.js"></script>
+    <script th:src="@{/lib/perfect-scrollbar/perfect-scrollbar.min.js}" src="../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script th:src="@{/lib/js-cookie/js.cookie.js}" src="../lib/js-cookie/js.cookie.js"></script>
+    <script th:src="@{/assets/js/cassie.js}" src="../assets/js/cassie.js"></script>
+</body>
+</html>

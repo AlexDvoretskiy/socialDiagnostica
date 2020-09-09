@@ -21,6 +21,12 @@ $(function(){
     $('body').toggleClass('toggle-sidebar');
   })
 
+  $('#addAnswerBut').on('click', function(e){
+    var answerContainer = document.getElementById("answer-container");
+    var input = '<input type="text" class="form-control mt-1" placeholder="Введите вариант ответа">';
+    answerContainer.innerHTML += input;
+  })
+
   $('.header-search .form-control').on('focusin', function(e){
     $(this).parent().addClass('active');
   })
