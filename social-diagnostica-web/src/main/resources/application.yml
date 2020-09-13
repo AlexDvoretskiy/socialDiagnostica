@@ -1,0 +1,27 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /soicialDiagnostica/portal
+
+spring:
+  application:
+    name: social-diagnostica-web
+  datasource:
+    url: jdbc:postgresql://localhost:5432/social_diagnostic_portal?useUnicode=true&characterEncoding=utf8
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  security:
+    pass: ruhardwork
+    salt: aa4702efc3bc5c06
+  thymeleaf:
+    cache: false
+
+socialDiagnostica:
+  api:
+    host:
+      register: http://localhost:8091/socialDiagnostic/%s
+      request: http://localhost:8091/socialDiagnostic/diagnosticApi/%s
