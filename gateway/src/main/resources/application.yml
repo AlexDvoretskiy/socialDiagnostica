@@ -24,10 +24,14 @@ zuul:
     auth-service:
       path: /uaa/**
       serviceId: auth-service
+      stripPrefix: false
+      sensitive-headers: Cookie,Set-Cookie
 
     social-diagnostica-api:
       path: /soicialDiagnostica/**
       serviceId: social-diagnostica-api
+      stripPrefix: false
+      sensitive-headers: Cookie,Set-Cookie
 
 server:
-  port: 4000
+  port: 8080
