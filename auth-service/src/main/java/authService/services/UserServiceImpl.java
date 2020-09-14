@@ -1,7 +1,6 @@
 package authService.services;
 
 
-import authService.persistence.dto.UserDto;
 import authService.persistence.entites.Role;
 import authService.persistence.entites.User;
 import authService.repositories.RoleRepository;
@@ -14,14 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 
@@ -46,17 +43,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public User create(UserDto userDto) {
-		User user = new User();
+	public void create(User user) {
+		User existing = userRepository.findOneByName(user.getUsername());
+		if (existing != null) {
+			throw new IllegalArgumentException("Пользователь с данным именем уже существует: " + existing.getUsername());
+		}
 
-		user.setName(userDto.getUserName());
-		user.setFullName(userDto.getFullName());
-		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		user.setEmail(userDto.getEmail());
-		user.setRoles(Collections.singletonList(roleRepository.findOneByName(DEFAULT_ROLE)));
+		String hash = passwordEncoder.encode(user.getPassword());
+		user.setPassword(hash);
 
 		userRepository.save(user);
-		return user;
+		log.info("Новый пользователь был создан: {}", user.getUsername());
 	}
 
 	@Override
@@ -64,10 +61,9 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findOneByName(userName);
 		if (user == null) {
-			throw new UsernameNotFoundException("Invalid username or password.");
+			throw new UsernameNotFoundException("Некорректное имя пользователя или пароль");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
-				mapRolesToAuthorities(user.getRoles()));
+		return user;
 	}
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
