@@ -1,12 +1,12 @@
 server:
   port: 8091
   servlet:
-    context-path: /soicialDiagnostica
+    context-path: /socialDiagnostica
 
 security:
   oauth2:
     client:
-      clientId: social-diagnostica-api
+      clientId: social-diagnostica-service
       clientSecret: password
       accessTokenUri: http://localhost:5000/uaa/oauth/token
       tokenInfoUri: http://localhost:5000/uaa/oauth/check_token
@@ -15,7 +15,7 @@ security:
 
 spring:
   application:
-    name: social-diagnostica-api
+    name: social-diagnostica-service
   datasource:
     url: jdbc:postgresql://localhost:5432/social_diagnostic?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver

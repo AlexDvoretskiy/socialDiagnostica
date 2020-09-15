@@ -50,7 +50,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 	.autoApprove(true)
                 	.secret(passwordEncoder.encode("password"))
 				.and()
-				.withClient("social-diagnostica-api")
+				.withClient("social-diagnostica-service")
 					.secret(passwordEncoder.encode("password"))
 					.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
 					.scopes("read", "write")

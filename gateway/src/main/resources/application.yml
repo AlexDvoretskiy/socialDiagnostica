@@ -27,9 +27,9 @@ zuul:
       stripPrefix: false
       sensitive-headers: Cookie,Set-Cookie
 
-    social-diagnostica-api:
-      path: /soicialDiagnostica/**
-      serviceId: social-diagnostica-api
+    social-diagnostica-service:
+      path: /socialDiagnostica/**
+      serviceId: social-diagnostica-service
       stripPrefix: false
       sensitive-headers: Cookie,Set-Cookie
 

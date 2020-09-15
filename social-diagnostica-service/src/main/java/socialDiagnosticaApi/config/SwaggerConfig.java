@@ -23,13 +23,14 @@ public class SwaggerConfig {
 				.select()
 				.apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any())
-				.build();
+				.build()
+				.apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("SocialDiagnostica API")
 				.description("SocialDiagnostica API reference for developers")
-				.contact("alexander.dvoretskiy@gmail.com")
+				.contact("alexander.dvoretskiy")
 				.build();
 	}
 
