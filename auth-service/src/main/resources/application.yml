@@ -14,3 +14,11 @@ spring:
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  jwt:
+    key: jh2GnQGWZ3tuEcSD
+
+auth:
+  properties:
+    web-portal: gCxq2eTz
+    mobile-app: udUA43Y9
+    social-diagnostica-service: wV6wC8s6
