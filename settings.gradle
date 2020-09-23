@@ -1,3 +1,8 @@
 rootProject.name = 'socialDiagnostica'
-include 'socialDiagnosticaApi'
-include 'socialDiagnosticaWebPortal'
+include 'discovery-service'
+include 'gateway'
+include 'auth-service'
+include 'social-diagnostica-service'
+include 'social-statistica-service'
+include 'test-parsing-service'
+
