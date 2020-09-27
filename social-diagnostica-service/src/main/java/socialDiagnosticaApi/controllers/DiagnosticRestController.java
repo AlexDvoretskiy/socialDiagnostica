@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diagnosticApi")
+@RequestMapping("/api")
 public class DiagnosticRestController {
 	private final DiagnosticTestService diagnosticTestService;
 	private final DiagnosticCategoryService diagnosticCategoryService;
