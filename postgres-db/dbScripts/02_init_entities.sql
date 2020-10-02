@@ -1,3 +1,4 @@
+SET search_path TO public;
 
 create table if not exists diagnostic_category (
 	category_id serial not null constraint PK_diagnostic_category primary key,

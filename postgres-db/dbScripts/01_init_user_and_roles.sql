@@ -1,4 +1,5 @@
-create schema if not exists public;
+CREATE SCHEMA if not exists public;
+SET search_path TO public;
 
 create table if not exists roles (
 	id serial not null constraint PK_role primary key,

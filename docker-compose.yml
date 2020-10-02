@@ -1,0 +1,79 @@
+version: "3.4"
+services:
+
+  discovery-service:
+    image: alexdvoretskiy/social-diagnostica:discovery-service
+    ports:
+      - 8761:8761
+    networks:
+      - default
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  gateway:
+    image: alexdvoretskiy/social-diagnostica:gateway
+    ports:
+      - 8080:8080
+    networks:
+      - default
+    depends_on:
+      - discovery-service
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  auth-service:
+    image: alexdvoretskiy/social-diagnostica:auth-service
+    ports:
+      - 5000:5000
+    networks:
+      - default
+    depends_on:
+      - discovery-service
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/
+      - spring.datasource.url=jdbc:postgresql://postgresql-db:5432/social_diagnostic?useUnicode=true&characterEncoding=utf8
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  social-diagnostica-service:
+    image: alexdvoretskiy/social-diagnostica:social-diagnostica-service
+    ports:
+      - 8091:8091
+    networks:
+      - default
+    depends_on:
+      - discovery-service
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/
+      - spring.datasource.url=jdbc:postgresql://postgresql-db:5432/social_diagnostic?useUnicode=true&characterEncoding=utf8
+      - security.oauth2.client.accessTokenUri=http://auth-service:5000/uaa/oauth/token
+      - security.oauth2.client.tokenInfoUri=http://auth-service:5000/uaa/oauth/check_token
+      - security.oauth2.resource.userInfoUri=http://auth-service:5000/uaa/users/current
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  postgresql-db:
+    image: postgres:12-alpine
+    volumes:
+      - ./db_scripts/01_init_user_and_roles.sql:/docker-entrypoint-initdb.d/01_init_user_and_roles.sql
+      - ./db_scripts/02_init_entities.sql:/docker-entrypoint-initdb.d/02_init_entities.sql
+      - ./db_scripts/03_init_test_users.sql:/docker-entrypoint-initdb.d/03_init_test_users.sql
+      - ./db_scripts/04_init_test_data.sql:/docker-entrypoint-initdb.d/04_init_test_data.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=social_diagnostic
+    ports:
+      - 5432:5432
+    networks:
+      - default

@@ -5,4 +5,5 @@ include 'auth-service'
 include 'social-diagnostica-service'
 include 'social-statistica-service'
 include 'test-parsing-service'
+include 'postgres-db'
 

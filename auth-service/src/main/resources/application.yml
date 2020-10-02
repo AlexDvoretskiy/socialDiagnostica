@@ -7,7 +7,7 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/social_diagnostic_auth?useUnicode=true&characterEncoding=utf8
+    url: jdbc:postgresql://localhost:5432/social_diagnostic?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
